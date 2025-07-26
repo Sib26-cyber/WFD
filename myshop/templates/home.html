@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home- The running shop</title>
+    <link rel="stylesheet" href="{% static 'css/myshop/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Welcome to The Running Shop</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'register' %}">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {% if user.is_authenticated %}
+            {% if is_customer %}
+                <h2>Customer Dashboard</h2>
+                <p>Welcome, valued customer!</p>
+                <!-- Customer-specific content here -->
+            {% elif is_staff %}
+                <h2>Staff Dashboard</h2>
+                <p>Welcome, store staff!</p>
+                <!-- Staff-specific content here -->
+            {% elif is_admin or is_manager %}
+                <h2>Admin/Manager Dashboard</h2>
+                <p>Welcome, admin or manager!</p>
+                <!-- Admin/Manager-specific content here -->
+            {% else %}
+                <h2>General Dashboard</h2>
+                <p>Welcome to your dashboard!</p>
+            {% endif %}
+        {% else %}
+            <h2>Public Homepage</h2>
+            <p>Please log in to access your dashboard.</p>
+        {% endif %}
+    </main>
+    <footer>
+        <p>&copy; 2025 My Shop</p>
+    </footer>
+</body>
+</html>
